@@ -1,0 +1,13 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: python-api-monitor
+  labels:
+    release: monitoring-stack # This must match the name of your stack
+spec:
+  selector:
+    matchLabels:
+      app: python-api
+  endpoints:
+  - port: http # Make sure this matches your service port name
+    path: /metrics
