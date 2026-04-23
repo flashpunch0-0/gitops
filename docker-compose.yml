@@ -1,0 +1,23 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: devuser
+      POSTGRES_PASSWORD: devpassword
+      POSTGRES_DB: devops_db
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U devuser -d devops_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://devuser:devpassword@db:5442/devops_db
+      - ENV=Development
+    depends_on:
+      db:
+        condition: service_healthy
