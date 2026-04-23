@@ -1,4 +1,3 @@
-# k8s/kustomization.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
@@ -8,5 +7,5 @@ resources:
   - postgres-db.yaml
 
 images:
-  - name: my-placeholder-user/api-server  # This matches what is in api-deployment.yaml
-    newName: my-placeholder-user/api-server # We keep it generic here for GitHub
+  - name: my-placeholder-user/python-devops-api  # Must match the image in deployment.yaml
+    newTag: latest
