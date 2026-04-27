@@ -7,8 +7,10 @@ The system follows a modern DevOps lifecycle:
 1.  **Code:** FastAPI (Python 3.12) with Prometheus instrumentation.
 2.  **CI (GitHub Actions):** Automated linting, multi-stage Docker builds, and pushing to Docker Hub with Git SHA tagging.
 3.  **CD (ArgoCD):** GitOps controller monitoring the `k8s/` manifest directory for automated reconciliation.
+![Alt](img/ArgoCD.png)
 4.  **Orchestration:** Kubernetes (Minikube) managing high-availability deployments and persistent storage for PostgreSQL.
 5.  **Observability:** Kube-Prometheus-Stack (Prometheus & Grafana) for real-time metrics scraping and visualization.
+![Alt](img/monitoring.png)
 
 ---
 
@@ -59,7 +61,7 @@ This project implements **Deep Observability** through:
 * **Custom Metrics:** The Python API exposes a `/metrics` endpoint using `prometheus-fastapi-instrumentator`.
 * **Service Discovery:** A Kubernetes `ServiceMonitor` allows Prometheus to dynamically discover and scrape the API.
 * **Visualization:** Grafana dashboards (ID: 11074) provide real-time insights into request rates, latency, and pod resource consumption.
-
+![Alt](img/Graffana.png)
 ---
 
 ## 🛡️ Security & Best Practices (Technical GRC)
