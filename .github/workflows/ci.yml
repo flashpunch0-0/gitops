@@ -36,27 +36,22 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # 1. Setup Docker Buildx (Allows for faster builds)
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      # 2. Login to Docker Hub
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # 3. Build and Push
-      # We tag it with 'latest' AND the specific commit ID (SHA)
-      - name: Build Docker image
+      - name: Build Docker Image
         uses: docker/build-push-action@v5
         with:
           context: .
           load: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/python-devops-api:${{ github.sha }}
-
-      # Shield 3: Scan the image for vulnerabilities
+        # Shield 3: Scan the image for vulnerabilities
       - name: Scan Docker image with Trivy
         uses: aquasecurity/trivy-action@57a97c7d7c11f19576c002772f061179196b7483
 
@@ -66,8 +61,8 @@ jobs:
           exit-code: '1' # Pipeline fails if vulnerabilities are found
           severity: 'HIGH,CRITICAL'
 
-      -name: Push Image
-      run: |
+      - name: Push Image
+        run: |
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/python-devops-api:${{ github.sha }}
         docker tag ${{ secrets.DOCKERHUB_USERNAME }}/python-devops-api:${{ github.sha }} ${{ secrets.DOCKERHUB_USERNAME }}/python-devops-api:latest
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/python-devops-api:latest
