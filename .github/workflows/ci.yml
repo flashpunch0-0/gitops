@@ -63,6 +63,9 @@ jobs:
 
       - name: Push Image
         run: |
-        docker push ${{ secrets.DOCKERHUB_USERNAME }}/python-devops-api:${{ github.sha }}
-        docker tag ${{ secrets.DOCKERHUB_USERNAME }}/python-devops-api:${{ github.sha }} ${{ secrets.DOCKERHUB_USERNAME }}/python-devops-api:latest
-        docker push ${{ secrets.DOCKERHUB_USERNAME }}/python-devops-api:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/python-devops-api:${{ github.sha }}
+          docker tag ${{ secrets.DOCKERHUB_USERNAME }}/python-devops-api:${{ github.sha }} ${{ secrets.DOCKERHUB_USERNAME }}/python-devops-api:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/python-devops-api:latest
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
