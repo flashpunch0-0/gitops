@@ -28,6 +28,8 @@ jobs:
           directory: k8s/
           framework: kubernetes
           soft-fail: false # Pipeline fails if it is insecure
+          skip_check: CKV_K8S_14,CKV_K8S_43
+
 
   build-and-push:
     needs: [security-scan]

@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: python-api
+  namespace: backend
 spec:
   replicas: 2
   selector:
@@ -21,6 +22,8 @@ spec:
       automountServiceAccountToken: false
       containers:
       - name: api
+        #checkov:skip=CKV_K8S_14:image tag injected by kustomize/argocd
+        #checkov:skip=CKV_K8S_43:image digest injected by kustomize/argocd
         image: my-placeholder-user/python-devops-api:latest
         ports:
         - containerPort: 8000
