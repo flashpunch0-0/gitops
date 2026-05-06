@@ -55,7 +55,8 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/python-devops-api:${{ github.sha }}
         # Shield 3: Scan the image for vulnerabilities
       - name: Scan Docker image with Trivy
-        uses: aquasecurity/trivy-action@57a97c7d7c11f19576c002772f061179196b7483
+        # uses: aquasecurity/trivy-action@57a97c7d7c11f19576c002772f061179196b7483
+        uses:  aquasecurity/trivy-action@v0.36.0
 
         with:
           image-ref: '${{ secrets.DOCKERHUB_USERNAME }}/python-devops-api:${{ github.sha }}'
